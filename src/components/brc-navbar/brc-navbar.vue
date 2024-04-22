@@ -61,9 +61,10 @@ const searchStr = ref('')
   }
 
   .search  {
-   span {
-     color: white !important;
-   }
+    .u-search ::v-deep(span) {
+      color: white !important;
+    }
+
   }
 }
 
