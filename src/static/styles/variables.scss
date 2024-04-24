@@ -1,11 +1,9 @@
-$u-bg-color: #f7f7f7;
 /* #ifdef H5 */
 :root:root,
 /* #endif */
 page {
   //  #3AB54A #39a9ed
   --brc-app-background: #f7f7f7;
-  --van-button-primary-background: #3AB54A;
-  --van-button-primary-border-color:  #3AB54A;
-  $u-bg-color: #f7f7f7;
+  --brc-button-primary-background: #3AB54A;
+  --brc-button-primary-border-color:  #3AB54A;
 }

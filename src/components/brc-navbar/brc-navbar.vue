@@ -29,7 +29,7 @@ const searchStr = ref('')
  * 导航栏
  */
 .navbar {
-  background-color: var(--van-button-primary-background);
+  background-color: var(--brc-button-primary-background);
   background-size: cover;
   position: relative;
   display: flex;

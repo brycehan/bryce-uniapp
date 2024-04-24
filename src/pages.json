@@ -88,7 +88,7 @@
 			]
 		},
 		{
-			"root": "pages/subPages/user",
+			"root": "pages/subPages/my",
 			"pages": [
 				{
 					"path": "settings/settings",

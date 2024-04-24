@@ -10,7 +10,7 @@
         height="500rpx"
         radius="0"
         @change="(e: any) => current = e.current"
-        bg-color="var(--van-button-primary-background)"
+        bg-color="var(--brc-button-primary-background)"
     >
       <template #indicator>
         <view class="indicator">
@@ -40,7 +40,7 @@ const pictures = [
   {id: 2, imgUrl: '/static/images/banner/design-ui.png'},
   {id: 3, imgUrl: '/static/images/banner/develop-ui.png'},
   {id: 4, imgUrl: '/static/images/banner/admin-ui.png'},
-  {id: 5, imgUrl: '/static/images/banner/user-ui.png'},
+  {id: 5, imgUrl: '/static/images/banner/my-ui.png'},
 ]
 </script>
 

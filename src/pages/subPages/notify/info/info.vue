@@ -28,25 +28,24 @@ onLoad((option) => {
 
 <style scoped lang="scss">
 .viewport {
-  //margin: 25rpx;
   background-color: #fff;
-  overflow: hidden;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 
   h3 {
     font-size: 38rpx;
     font-weight: 400;
     color: #333;
-    padding: 25rpx;
+    padding: 20rpx;
   }
 
   .meta {
     font-size: 24rpx;
     color: grey;
     margin: 20rpx 0 30rpx;
-    padding: 25rpx;
+    padding: 20rpx;
   }
   .scroll-view {
     flex: 1;

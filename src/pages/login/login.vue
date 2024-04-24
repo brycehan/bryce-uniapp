@@ -5,15 +5,15 @@
     </view>
     <!-- 网页端表单登录 -->
     <!-- #ifdef H5 -->
-    <van-form class="form" @submit="onLogin">
-      <van-cell-group inset>
-        <van-field
+    <u-form class="form" @submit="onLogin">
+      <u-cell-group inset>
+        <u-field
           v-model="loginDto.username"
           :clearable="true"
           label=""
           placeholder="账号名/邮箱/手机号"
         />
-        <van-field
+        <u-field
           v-model="loginDto.password"
           :clearable="true"
           :type="passwordType"
@@ -22,16 +22,16 @@
         >
           <template v-slot:right-icon>
             <span class="solts" @click="switchPasswordType">
-              <van-icon name="closed-eye" v-if="passwordType === 'password'" />
-              <van-icon name="eye" v-else />
+              <u-icon name="closed-eye" v-if="passwordType === 'password'" />
+              <u-icon name="eye" v-else />
             </span>
           </template>
-        </van-field>
-      </van-cell-group>
+        </u-field>
+      </u-cell-group>
       <div style="margin: 16px">
-        <van-button round block type="primary" native-type="submit"> 提交 </van-button>
+        <u-button round block type="primary" native-type="submit"> 提交 </u-button>
       </div>
-    </van-form>
+    </u-form>
     <!-- #endif -->
     <!-- 小程序端授权登录 -->
     <!-- #ifdef MP-WEIXIN -->

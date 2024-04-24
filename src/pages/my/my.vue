@@ -4,16 +4,16 @@
     <view class="profile">
       <!-- 已登录 -->
       <view class="overview" v-if="true">
-        <navigator url="/pages/subPages/user/profile/profile" hover-class="none">
-          <van-image
+        <navigator url="/pages/subPages/my/profile/profile" hover-class="none">
+          <u-avatar
             class="avatar"
-            round
+            size="64"
             src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
           />
         </navigator>
         <view class="meta">
           <view class="nickname"> brycehan </view>
-          <navigator class="extra" url="/pages/subPages/user/profile/profile" hover-class="none">
+          <navigator class="extra" url="/pages/subPages/my/profile/profile" hover-class="none">
             <text class="update">更新头像昵称</text>
           </navigator>
         </view>
@@ -21,9 +21,8 @@
       </view>
       <view class="overview" v-else>
         <navigator url="/pages/login/login" hover-class="none">
-          <van-image
+          <u-avatar
             class="avatar"
-            round
             src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
           />
         </navigator>
@@ -41,24 +40,24 @@
     </view>
     <!-- 列表 -->
     <view class="list">
-      <van-cell-group>
-        <van-cell
+      <u-cell-group>
+        <u-cell
           title="个人信息"
-          icon="user-o"
+          icon="account"
           is-link
-          @tap="navigateTo('/pages/subPages/user/profile/profile')"
+          @tap="navigateTo('/pages/subPages/my/profile/profile')"
         />
-        <van-cell title="修改密码" icon="shield-o" is-link />
-        <van-cell title="帮助中心" icon="question-o" is-link />
-      </van-cell-group>
-      <van-cell-group>
-        <van-cell title="关于我们" icon="like-o" is-link />
-        <van-cell title="意见反馈" icon="service-o" is-link />
-        <van-cell title="检查更新" icon="clock-o" is-link />
-      </van-cell-group>
-      <van-cell-group>
-        <van-cell title="系统设置" icon="setting-o" is-link />
-      </van-cell-group>
+        <u-cell title="修改密码" icon="lock" is-link />
+        <u-cell title="帮助中心" icon="question-circle" is-link />
+      </u-cell-group>
+      <u-cell-group>
+        <u-cell title="关于我们" icon="heart" is-link />
+        <u-cell title="意见反馈" icon="kefu-ermai" is-link />
+        <u-cell title="检查更新" icon="clock" is-link />
+      </u-cell-group>
+      <u-cell-group>
+        <u-cell title="系统设置" icon="setting" is-link />
+      </u-cell-group>
     </view>
   </view>
 </template>
@@ -87,7 +86,7 @@ const navigateTo = (url: string) => {
     padding-top: 20rpx;
     padding-bottom: 30rpx;
     position: relative;
-    background-color: var(--van-button-primary-background);
+    background-color: var(--brc-button-primary-background);
 
     .overview {
       display: flex;
@@ -149,8 +148,9 @@ const navigateTo = (url: string) => {
   }
   // 列表
   .list {
-    .van-cell-group {
+    .u-cell-group {
       margin: 20rpx 0;
+      background-color: white;
     }
   }
 }
