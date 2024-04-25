@@ -3,62 +3,72 @@
     <!-- 头像 -->
     <view class="avatar">
       <view class="avatar-content">
-        <u-avatar
-            class="avatar"
-            size="84"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-        />
+        <image class="image" mode="aspectFill" :src="defaultAvatar"></image>
       </view>
       <text class="text">点击修改头像</text>
     </view>
     <!-- 表单 -->
-    <u-form class="form">
-      <u-form-item label="账号" label-width="80">
-        <u-input v-model="userDto.account" border="false" readonly></u-input>
-      </u-form-item>
-      <u-form-item label="昵称" label-width="80">
-        <u-input v-model="userDto.nickname"  border="false" placeholder="请填写昵称"></u-input>
-      </u-form-item>
-      <u-form-item label="性别" prop="userInfo.name" label-width="80">
-        <u-radio-group class="gender" v-model="userDto.gender">
-          <u-radio class="gender-radio" name="M" label="男"></u-radio>
-          <u-radio class="gender-radio" name="F" label="女"></u-radio>
-        </u-radio-group>
-      </u-form-item>
-      <u-form-item class="datetime-pick" label="出生日期" prop="userInfo.name" label-width="80" @click="show = true">
-        <u-datetime-picker
-            class="datetime-picker"
-            :show="show"
-            v-model="userDto.birthday"
-            mode="date"
-            @click="show = true"
-            @cancel="show = false"
-            @confirm="onDatePickerConfirm"
-        >
-        </u-datetime-picker>
-        <view class="datetime-val" v-if="userDto?.birthday">{{timeFormat(userDto?.birthday, 'yyyy-mm-dd')}}</view>
-        <view class="placeholder datetime-val" v-else>请选择日期</view>
-      </u-form-item>
-      <u-form-item label="职业"  prop="userInfo.name" label-width="80">
-        <u-input v-model="userDto.name" :border="false" placeholder="请填写职业"></u-input>
-      </u-form-item>
-      <div style="margin: 16px">
-        <u-button round block type="primary" native-type="submit"> 保存</u-button>
-      </div>
-    </u-form>
+    <view class="form">
+      <!-- 表单内容 -->
+      <view class="form-content">
+        <view class="form-item">
+          <text class="label">账号</text>
+          <text class="account">{{ profile?.account }}</text>
+        </view>
+        <view class="form-item">
+          <text class="label">昵称</text>
+          <input class="input" type="text" placeholder="请填写昵称" v-model="profile!.nickname" />
+        </view>
+        <view class="form-item">
+          <text class="label">性别</text>
+          <radio-group @change="onGenderChange">
+            <label class="radio-label">
+              <radio value="M" :color="primaryColor" :checked="profile?.gender === 'M'" />
+              <text>男</text>
+            </label>
+            <label class="radio-label">
+              <radio value="F" :color="primaryColor" :checked="profile?.gender === 'F'" />
+              <text>女</text>
+            </label>
+          </radio-group>
+        </view>
+        <view class="form-item">
+          <text class="label">出生日期</text>
+          <picker class="picker" mode="date" start="1900-01-01" :end="new Date()" @change="onBirthdayChange"
+                  :value="profile?.birthday || '2000-01-01'">
+            <view v-if="profile?.birthday">{{ profile?.birthday }}</view>
+            <view class="placeholder" v-else>请选择日期</view>
+          </picker>
+        </view>
+        <!-- 只有微信小程序端内置了省市区数据 -->
+        <!-- #ifdef MP-WEIXIN -->
+        <view class="form-item">
+          <text class="label">城市</text>
+          <picker class="picker" mode="region" @change="onFullLocationChange"
+                  :value="profile?.fullLocation!.split(' ')">
+            <view v-if="profile?.fullLocation">{{ profile?.fullLocation }}</view>
+            <view class="placeholder" v-else>请选择城市</view>
+          </picker>
+        </view>
+        <!-- #endif -->
+        <view class="form-item">
+          <text class="label">职业</text>
+          <input class="input" type="text" placeholder="请填写职业" v-model="profile!.profession" />
+        </view>
+      </view>
+      <!-- 提交按钮 -->
+      <button @tap="onSubmit" class="form-button">保 存</button>
+    </view>
   </view>
 </template>
 
 <script setup lang="ts">
 import {reactive, ref} from "vue";
-import { timeFormat } from "uview-plus";
 
 const userDto = reactive<any>({account: 'test', gender: 'M'})
-const show = ref<boolean>(false)
-const onDatePickerConfirm = (args: any) => {
-  userDto.birthday = timeFormat(args.value, 'yyyy-mm-dd')
-  show.value=false
-}
+const defaultAvatar = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'
+const primaryColor = '#3AB54A'
+
 </script>
 
 <style lang="scss">
@@ -68,17 +78,21 @@ const onDatePickerConfirm = (args: any) => {
   height: 100%;
 
   .avatar {
-    margin-top: 20rpx;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 260rpx;
+    justify-content: center;
+    align-items: center;
 
-    .avatar-content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .image {
+      width: 160rpx;
+      height: 160rpx;
+      border-radius: 50%;
     }
 
     .text {
       display: flex;
-      padding: 20rpx 0;
       justify-content: center;
       align-items: center;
       font-size: 26rpx;
@@ -87,37 +101,66 @@ const onDatePickerConfirm = (args: any) => {
   }
 
   .form {
-    margin: 0 20rpx;
-    padding: 0 20rpx;
-    border-radius: 10rpx;
-    background-color: white;
+    background-color: #f4f4f4;
 
-    .u-form-item {
-      justify-content: center;
-      height: 90rpx;
+    &-content {
+      margin: 10rpx 20rpx 0;
+      padding: 0 20rpx;
+      border-radius: 10rpx;
+      background-color: #fff;
+    }
+
+    &-item {
+      display: flex;
+      height: 46rpx;
+      line-height: 46rpx;
+      padding: 25rpx 10rpx;
+      background-color: white;
+      font-size: 28rpx;
       border-bottom: 1rpx solid #ddd;
+
+      &:last-child {
+        border: none;
+      }
+
+      .label {
+        width: 180rpx;
+        color: #333;
+      }
+
+      .account {
+        color: #666;
+      }
+
+      .input {
+        flex: 1;
+        display: block;
+        height: 46rpx;
+      }
+
+      .radio-label {
+        margin-right: 20rpx;
+      }
+
+      .picker {
+        flex: 1;
+      }
+
+      .placeholder {
+        color: #808080;
+      }
     }
 
-    .gender {
-      padding-left: 18rpx;
+    &-button {
+      height: 80rpx;
+      text-align: center;
+      line-height: 80rpx;
+      margin: 30rpx 20rpx;
+      color: white;
+      border-radius: 80rpx;
+      font-size: 30rpx;
+      background-color: var(--brc-button-primary-background);
     }
-  }
-
-  // 修复样式bug
-  .gender-radio {
-    margin-right: 20rpx;
-  }
-  .datetime-pick {
-    display: flex;
-    align-items: flex-start;
-  }
-  .datetime-val {
-    font-size: 15px;
-    padding-left: 9px;
-  }
-  .placeholder {
-    color: rgb(192, 196, 204);
-    font-size: 15px;
   }
 }
 </style>

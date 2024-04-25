@@ -5,33 +5,15 @@
     </view>
     <!-- 网页端表单登录 -->
     <!-- #ifdef H5 -->
-    <u-form class="form" @submit="onLogin">
-      <u-cell-group inset>
-        <u-field
-          v-model="loginDto.username"
-          :clearable="true"
-          label=""
-          placeholder="账号名/邮箱/手机号"
-        />
-        <u-field
-          v-model="loginDto.password"
-          :clearable="true"
-          :type="passwordType"
-          label=""
-          placeholder="请输入密码"
-        >
-          <template v-slot:right-icon>
-            <span class="solts" @click="switchPasswordType">
-              <u-icon name="closed-eye" v-if="passwordType === 'password'" />
-              <u-icon name="eye" v-else />
-            </span>
-          </template>
-        </u-field>
-      </u-cell-group>
-      <div style="margin: 16px">
-        <u-button round block type="primary" native-type="submit"> 提交 </u-button>
-      </div>
-    </u-form>
+    <uni-forms class="form" :model="loginDto" :rules="rules">
+      <uni-forms-item name="name">
+        <uni-easyinput type="text" v-model="loginDto.username" placeholder="账号名/邮箱/手机号" />
+      </uni-forms-item>
+      <uni-forms-item  name="name">
+        <uni-easyinput type="password" v-model="loginDto.password" placeholder="请输入密码" />
+      </uni-forms-item>
+      <button class="button" @click="onLogin">登录</button>
+    </uni-forms>
     <!-- #endif -->
     <!-- 小程序端授权登录 -->
     <!-- #ifdef MP-WEIXIN -->
@@ -119,21 +101,5 @@ const onLogin = async () => {
 </script>
 
 <style scoped lang="scss">
-.viewport {
-  height: 100%;
-  background-color: #f5f5f5;
-
-  .logo {
-    display: flex;
-    justify-content: center;
-    image {
-      width: 120rpx;
-      height: 120rpx;
-      margin-top: 20vh;
-    }
-  }
-  .form {
-    margin-top: 40rpx;
-  }
-}
+@import "login.scss";
 </style>

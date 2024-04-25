@@ -1,55 +1,47 @@
 <template>
-  <view>
-    <u-collapse v-model="activeNames" :value="['0','1']">
-      <u-collapse-item title="任务管理" name="0" icon="list">
-        <u-grid :border="false" :col="3">
-          <u-grid-item>
-            <u-icon name="clock" color="#1989fa" :size="size"></u-icon>
-            <text class="grid-text">待办任务</text>
-          </u-grid-item>
-          <u-grid-item>
-            <u-icon name="checkmark-circle" color="#3AB54A" :size="size"></u-icon>
-            <text class="grid-text">已办任务</text>
-          </u-grid-item>
-          <u-grid-item>
-            <u-icon name="file-text" color="#1989fa" :size="size"></u-icon>
-            <text class="grid-text">我相关的</text>
-          </u-grid-item>
-        </u-grid>
-      </u-collapse-item>
-      <u-collapse-item title="功能列表" name="1" icon="list-dot">
-        <u-grid :border="false" :col="5">
-          <u-grid-item>
-            <u-icon name="photo" color="#1989fa" :size="size"></u-icon>
-            <text class="grid-text">文字</text>
-          </u-grid-item>
-          <u-grid-item>
-            <u-icon name="photo" color="#1989fa" :size="size"></u-icon>
-            <text class="grid-text">文字</text>
-          </u-grid-item>
-          <u-grid-item>
-            <u-icon name="photo" color="#1989fa" :size="size"></u-icon>
-            <text class="grid-text">文字</text>
-          </u-grid-item>
-          <u-grid-item>
-            <u-icon name="photo" color="#1989fa" :size="size"></u-icon>
-            <text class="grid-text">文字</text>
-          </u-grid-item>
-          <u-grid-item>
-            <u-icon name="photo" color="#1989fa" :size="size"></u-icon>
-            <text class="grid-text">文字</text>
-          </u-grid-item>
-        </u-grid>
-      </u-collapse-item>
-    </u-collapse>
+  <view class="brc-collapse">
+    <uni-collapse>
+      <uni-collapse-item title="任务管理" :open="true">
+        <uni-grid :column="3" :show-border="false">
+          <uni-grid-item>
+            <uni-icons type="contact" size="30"></uni-icons>
+            <text class="text">待办任务</text>
+          </uni-grid-item>
+          <uni-grid-item>
+            <uni-icons type="contact" size="30"></uni-icons>
+            <text class="text">待办任务</text>
+          </uni-grid-item>
+          <uni-grid-item>
+            <uni-icons type="contact" size="30"></uni-icons>
+            <text class="text">待办任务</text>
+          </uni-grid-item>
+        </uni-grid>
+      </uni-collapse-item>
+      <uni-collapse-item title="功能列表" :open="true">
+        <uni-grid :column="3">
+          <uni-grid-item>
+            <uni-icons type="contact" size="30"></uni-icons>
+            <text class="text">文字</text>
+          </uni-grid-item>
+          <uni-grid-item>
+            <uni-icons type="contact" size="30"></uni-icons>
+            <text class="text">文字</text>
+          </uni-grid-item>
+          <uni-grid-item>
+            <uni-icons type="contact" size="30"></uni-icons>
+            <text class="text">文字</text>
+          </uni-grid-item>
+        </uni-grid>
+      </uni-collapse-item>
+    </uni-collapse>
   </view>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-const activeNames = ref(['1', '2'])
-const size = ref<number>(52)
+<script setup lang="ts"></script>
 
-</script>
-
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.brc-collapse {
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>

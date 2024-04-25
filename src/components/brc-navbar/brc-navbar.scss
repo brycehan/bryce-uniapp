@@ -1,0 +1,38 @@
+/**
+ * 导航栏
+ */
+.navbar {
+  background-color: var(--brc-button-primary-background);
+  background-size: cover;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    height: 64rpx;
+    padding-left: 30rpx;
+    padding-top: 20rpx;
+    .logo-image {
+      //width: 166rpx;
+      //height: 39rpx;
+      // 字体样式
+      color: white;
+      align-items: center;
+      justify-content: center;
+      font-size: 28rpx;
+    }
+    .logo-text {
+      flex: 1;
+      line-height: 28rpx;
+      color: white;
+      margin: 2rpx 0 0 20rpx;
+      padding-left: 20rpx;
+      border-left: 1rpx solid #fff;
+      font-size: 26rpx;
+    }
+  }
+
+}

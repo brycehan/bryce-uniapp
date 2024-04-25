@@ -3,35 +3,29 @@
     <!-- 个人资料 -->
     <view class="profile">
       <!-- 已登录 -->
-      <view class="overview" v-if="true">
+      <view class="overview" v-if="false">
         <navigator url="/pages/subPages/my/profile/profile" hover-class="none">
-          <u-avatar
-            class="avatar"
-            size="64"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-          />
+          <image class="avatar" mode="aspectFill" :src="defaultAvatar"></image>
         </navigator>
         <view class="meta">
-          <view class="nickname"> brycehan </view>
+          <view class="nickname"> 韩brycehan </view>
           <navigator class="extra" url="/pages/subPages/my/profile/profile" hover-class="none">
             <text class="update">更新头像昵称</text>
           </navigator>
         </view>
         <navigator class="quit" hover-class="none"> 退出登录 </navigator>
       </view>
+      <!-- 未登录 -->
       <view class="overview" v-else>
         <navigator url="/pages/login/login" hover-class="none">
-          <u-avatar
-            class="avatar"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-          />
+          <image class="avatar" mode="aspectFill" :src="defaultAvatar"></image>
         </navigator>
         <view class="meta">
           <navigator url="/pages/login/login" hover-class="none" class="nickname">
             未登录
           </navigator>
           <view class="extra">
-            <navigator url="/pages/login/login" hover-class="none" class="nickname">
+            <navigator url="/pages/login/login" hover-class="none" class="update">
               <text class="tips">点击登录账号</text>
             </navigator>
           </view>
@@ -40,29 +34,26 @@
     </view>
     <!-- 列表 -->
     <view class="list">
-      <u-cell-group>
-        <u-cell
-          title="个人信息"
-          icon="account"
-          is-link
-          @tap="navigateTo('/pages/subPages/my/profile/profile')"
-        />
-        <u-cell title="修改密码" icon="lock" is-link />
-        <u-cell title="帮助中心" icon="question-circle" is-link />
-      </u-cell-group>
-      <u-cell-group>
-        <u-cell title="关于我们" icon="heart" is-link />
-        <u-cell title="意见反馈" icon="kefu-ermai" is-link />
-        <u-cell title="检查更新" icon="clock" is-link />
-      </u-cell-group>
-      <u-cell-group>
-        <u-cell title="系统设置" icon="setting" is-link />
-      </u-cell-group>
+      <uni-list>
+        <uni-list-item title="个人信息" showArrow clickable @click="navigateTo('/pages/subPages/my/profile/profile')"></uni-list-item>
+        <uni-list-item title="修改密码" showArrow clickable @click="navigateTo('/pages/subPages/my/password/password')"></uni-list-item>
+        <uni-list-item title="帮助中心" showArrow clickable @click="navigateTo('/pages/subPages/my/help/help')"></uni-list-item>
+      </uni-list>
+      <uni-list>
+        <uni-list-item title="关于我们" showArrow clickable @click="navigateTo('/pages/subPages/my/profile/profile')"></uni-list-item>
+        <uni-list-item title="意见反馈" showArrow clickable @click="navigateTo('/pages/subPages/my/password/password')"></uni-list-item>
+        <uni-list-item title="检查更新" showArrow clickable @click="navigateTo('/pages/subPages/my/help/help')"></uni-list-item>
+      </uni-list>
+
+      <uni-list>
+        <uni-list-item title="系统设置" showArrow clickable @click="navigateTo('/pages/subPages/my/profile/profile')"></uni-list-item>
+      </uni-list>
     </view>
   </view>
 </template>
 
 <script setup lang="ts">
+const defaultAvatar = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'
 /**
  * 路由跳转
  */
@@ -83,8 +74,7 @@ const navigateTo = (url: string) => {
  * 用户信息
  */
   .profile {
-    padding-top: 20rpx;
-    padding-bottom: 30rpx;
+    padding: 25rpx 0 25rpx;
     position: relative;
     background-color: var(--brc-button-primary-background);
 
@@ -106,9 +96,7 @@ const navigateTo = (url: string) => {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
       line-height: 30rpx;
-      padding: 16rpx 0;
       margin-left: 20rpx;
     }
 
@@ -148,7 +136,7 @@ const navigateTo = (url: string) => {
   }
   // 列表
   .list {
-    .u-cell-group {
+    .uni-list {
       margin: 20rpx 0;
       background-color: white;
     }
