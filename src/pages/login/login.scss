@@ -1,6 +1,6 @@
 .viewport {
   height: 100%;
-  background-color: #f5f5f5;
+  background-color: white;
 
   .logo {
     display: flex;
@@ -11,7 +11,30 @@
       margin-top: 20vh;
     }
   }
+
   .form {
     margin-top: 40rpx;
+
+    .uni-forms-item {
+      padding: 0 30rpx;
+      .uni-easyinput {
+        border-bottom: 1px solid #ddd;
+      }
+      .uni-easyinput__placeholder-class {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .button {
+    background-color: var(--brc-button-primary-background);
+    color: white;
+    margin: 0 20rpx;
+  }
+
+  .tips {
+    color: #999;
+    font-size: 28rpx;
+    margin: 0 20rpx;
   }
 }

@@ -7,13 +7,17 @@
     <!-- #ifdef H5 -->
     <uni-forms class="form" :model="loginDto" :rules="rules">
       <uni-forms-item name="name">
-        <uni-easyinput type="text" v-model="loginDto.username" placeholder="账号名/邮箱/手机号" />
+        <uni-easyinput type="text" v-model="loginDto.username" :input-border="false" :primaryColor="primaryColor" placeholder="账号名/邮箱/手机号" />
       </uni-forms-item>
       <uni-forms-item  name="name">
-        <uni-easyinput type="password" v-model="loginDto.password" placeholder="请输入密码" />
+        <uni-easyinput type="password" v-model="loginDto.password" :input-border="false" :primaryColor="primaryColor" placeholder="请输入密码" />
       </uni-forms-item>
-      <button class="button" @click="onLogin">登录</button>
     </uni-forms>
+    <!-- 短信验证码登录 -->
+<!--    <view class="caption">-->
+<!--      <text>短信验证码登录</text>-->
+<!--    </view>-->
+    <button class="button" @click="onLogin">登录</button>
     <!-- #endif -->
     <!-- 小程序端授权登录 -->
     <!-- #ifdef MP-WEIXIN -->
@@ -23,16 +27,6 @@
     </button>
     <!-- #endif -->
 
-    <view class="extra">
-      <view class="caption">
-        <text>其它登录方式</text>
-      </view>
-      <view class="options">
-        <button>
-          <text class="icon icon-phone">手机验证</text>
-        </button>
-      </view>
-    </view>
     <view class="tips">登录/注册即视为您同意《服务条款》和《Bryce隐私协议》</view>
   </view>
 </template>
@@ -48,6 +42,7 @@ import type { AccountLoginDto, UserLoginVo } from '@/types/auth'
 
 const loginDto = reactive<AccountLoginDto>({} as AccountLoginDto)
 const passwordType = ref('password')
+const primaryColor = '#3AB54A'
 
 const switchPasswordType = () => {
   passwordType.value = passwordType.value === 'password' ? 'text' : 'password'
