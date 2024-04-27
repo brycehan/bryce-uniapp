@@ -9,7 +9,7 @@ import type {
 } from '@/types/auth'
 
 /**
- * 账号登录接口
+ * app账号密码登录接口
  *
  * @param data 请求体参数
  */

@@ -1,27 +1,15 @@
 import { request } from '@/utils/request'
 import type { MaLoginDto, MaUserLoginVo, MaUserProfileDto, MaUserProfileVo } from '@/types/maUser'
+import type { UserLoginVo } from '@/types/auth'
 
 /**
- * 登录接口
+ * 微信小程序快捷登录接口
  *
  * @param data 请求体参数
  */
 export const loginApi = (data: MaLoginDto) => {
-  return request<MaUserLoginVo>({
+  return request<UserLoginVo>({
     url: '/ma/user/login',
-    method: 'POST',
-    data,
-  })
-}
-
-/**
- * 登录接口
- *
- * @param data 请求体参数
- */
-export const appLoginApi = (data: MaLoginDto) => {
-  return request<MaUserLoginVo>({
-    url: '/auth/user/login',
     method: 'POST',
     data,
   })

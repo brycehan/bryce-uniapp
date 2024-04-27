@@ -13,7 +13,6 @@
             <text class="update">更新头像昵称</text>
           </navigator>
         </view>
-<!--        <navigator class="quit" hover-class="none"> 退出登录 </navigator>-->
         <view @tap="onLogout" class="quit">退出登录</view>
       </view>
       <!-- 未登录 -->

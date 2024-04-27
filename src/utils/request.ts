@@ -54,7 +54,18 @@ export const request = <T>(options: UniApp.RequestOptions) => {
        */
       success(res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(res.data as ResponseResult<T>)
+          const result = (res.data as ResponseResult<T>)
+          if (result.code === 200) {
+            // 刷新token
+            resolve(result)
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: result.message || '请求错误',
+            })
+            reject(res)
+          }
+
         } else if (res.statusCode === 401) {
           // 清理用户信息，跳转到登录页
           const authStore = useAuthStore()
