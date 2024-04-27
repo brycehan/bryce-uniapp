@@ -194,7 +194,7 @@ const onFullLocationChange: UniHelper.RegionPickerOnChange = (ev) => {
  */
 const onSubmit = async () => {
   const { nickname, gender, birthday, profession } = profile.value
-  let result = null
+  let result
   let data = {
     nickname,
     gender,
