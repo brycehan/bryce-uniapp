@@ -64,10 +64,149 @@
 
 <script setup lang="ts">
 import {reactive, ref} from "vue";
+import { useAuthStore } from '@/stores/modules/auth'
+import type { Gender, UserProfileVo } from '@/types/auth'
+import { getUserProfileApi, putUserProfileApi } from '@/api/auth'
+import { onLoad } from '@dcloudio/uni-app'
 
 const userDto = reactive<any>({account: 'test', gender: 'M'})
 const defaultAvatar = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'
 const primaryColor = '#3AB54A'
+// 个人信息
+const profile = ref<UserProfileVo>({} as UserProfileVo)
+const authStore = useAuthStore()
+
+/**
+ * 获取个人信息
+ */
+const getUserProfileData = async () => {
+  const res = await getUserProfileApi()
+  profile.value = res.data
+  // 同步store中的头像和昵称
+  authStore.profile!.avatar = res.data.avatar
+  authStore.profile!.nickname = res.data.nickname
+}
+
+onLoad(() => {
+  getUserProfileData()
+})
+
+const onAvatarChange = () => {
+  // 调用拍照/选择图片
+  // #ifdef H5 || APP-PLUS
+  uni.chooseImage({
+    count: 1,
+    success: (res) => {
+      // 文件路径
+      const tempFilePath = res.tempFilePaths
+      // 上传
+      uploadFile(tempFilePath[0])
+    }
+  })
+  // #endif
+
+  // #ifdef MP-WEIXIN
+  uni.chooseMedia({
+    count: 1,
+    mediaType: ['image'],
+    success: (res) => {
+      // 文件路径
+      const { tempFilePath } = res.tempFiles[0]
+      // 上传
+      uploadFile(tempFilePath)
+    }
+  })
+  // #endif
+}
+
+/**
+ * 上传文件
+ * @param file 文件路径
+ */
+const uploadFile = (file: string) => {
+  // 上传文件
+  uni.uploadFile({
+    url: '/ma/user/avatar',
+    name: 'file',
+    filePath: file,
+    success: (res) => {
+      if (res.statusCode === 200) {
+        const avatar = JSON.parse(res.data).data.url
+        // 个人信息页数据更新
+        profile.value.avatar = avatar
+        // 更新到store中
+        authStore.profile!.avatar = avatar
+        uni.showToast({
+          icon: 'success',
+          title: '更新成功'
+        })
+      } else {
+        uni.showToast({
+          icon: 'error',
+          title: '出现错误'
+        })
+      }
+    }
+  })
+}
+
+/**
+ * 修改性别
+ *
+ * @param ev 事件对象
+ */
+const onGenderChange: UniHelper.RadioGroupOnChange = (ev) => {
+  profile.value.gender = ev.detail.value as Gender
+}
+
+/**
+ * 修改出生日期
+ *
+ * @param ev 事件对象
+ */
+const onBirthdayChange: UniHelper.DatePickerOnChange = (ev) => {
+  profile.value.birthday = ev.detail.value
+}
+
+// 城市
+let fullLocationCode: [string, string, string] = ['', '', '']
+/**
+ * 修改城市
+ *
+ * @param ev 事件对象
+ */
+const onFullLocationChange: UniHelper.RegionPickerOnChange = (ev) => {
+  profile.value.fullLocation = ev.detail.value.join(' ')
+  fullLocationCode = ev.detail.code!
+}
+
+/**
+ * 提交表单
+ */
+const onSubmit = async () => {
+  const { nickname, gender, birthday, profession, fullLocation } = profile.value
+
+  const res = await putUserProfileApi({
+    nickname,
+    gender,
+    birthday,
+    province: fullLocationCode[0],
+    city: fullLocationCode[1],
+    county: fullLocationCode[2],
+    fullLocation,
+    profession
+  })
+  // 更新到store中
+  authStore.profile!.nickname = res.data.nickname
+  uni.showToast({
+    icon: 'success',
+    title: '保存成功'
+  })
+  setTimeout(() => {
+    uni.navigateBack()
+  }, 400)
+}
+
 
 </script>
 
@@ -151,7 +290,7 @@ const primaryColor = '#3AB54A'
         color: #808080;
       }
     }
-    
+
   }
 }
 </style>

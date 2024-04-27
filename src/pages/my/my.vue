@@ -3,9 +3,9 @@
     <!-- 个人资料 -->
     <view class="profile">
       <!-- 已登录 -->
-      <view class="overview" v-if="false">
+      <view class="overview" v-if="authStore.profile">
         <navigator url="/pages/subPages/my/profile/profile" hover-class="none">
-          <image class="avatar" mode="aspectFill" :src="defaultAvatar"></image>
+          <image class="avatar" mode="aspectFill" :src="authStore.profile?.avatar || defaultAvatar"></image>
         </navigator>
         <view class="meta">
           <view class="nickname"> 韩brycehan </view>
@@ -13,7 +13,8 @@
             <text class="update">更新头像昵称</text>
           </navigator>
         </view>
-        <navigator class="quit" hover-class="none"> 退出登录 </navigator>
+<!--        <navigator class="quit" hover-class="none"> 退出登录 </navigator>-->
+        <view @tap="onLogout" class="quit">退出登录</view>
       </view>
       <!-- 未登录 -->
       <view class="overview" v-else>
@@ -53,13 +54,33 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/modules/auth'
+
 const defaultAvatar = '/static/images/avatar-1.png'
+const authStore = useAuthStore()
+
 /**
  * 路由跳转
  */
 const navigateTo = (url: string) => {
   uni.navigateTo({
     url,
+  })
+}
+
+/**
+ * 退出登录
+ */
+const onLogout = () => {
+  uni.showModal({
+    content: '确定要退出登录吗？',
+    success: (res) => {
+      if (res.confirm) {
+        authStore.clearProfile()
+        // 返回上一页
+        uni.navigateBack()
+      }
+    }
   })
 }
 </script>
@@ -132,6 +153,7 @@ const navigateTo = (url: string) => {
       right: 40rpx;
       font-size: 28rpx;
       color: #fff;
+      cursor: pointer;
     }
   }
   // 列表

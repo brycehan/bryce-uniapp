@@ -5,7 +5,7 @@
     </view>
     <!-- 网页端表单登录 -->
     <!-- #ifdef H5 -->
-    <uni-forms class="form" :model="loginDto" :rules="rules">
+    <uni-forms class="form" :model="loginDto">
       <uni-forms-item name="name">
         <uni-easyinput type="text" v-model="loginDto.username" :input-border="false" :primaryColor="primaryColor" placeholder="请输入账号" />
       </uni-forms-item>
@@ -14,9 +14,6 @@
       </uni-forms-item>
     </uni-forms>
     <!-- 短信验证码登录 -->
-<!--    <view class="caption">-->
-<!--      <text>短信验证码登录</text>-->
-<!--    </view>-->
     <button class="button" @click="onLogin">登录</button>
     <!-- #endif -->
     <!-- 小程序端授权登录 -->
@@ -33,7 +30,6 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import type { MaUserLoginVo } from '@/types/maUser'
 import { useAuthStore } from '@/stores/modules/auth'
 import { loginApi } from '@/api/user'
 import { onLoad } from '@dcloudio/uni-app'
