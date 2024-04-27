@@ -151,17 +151,7 @@ const primaryColor = '#3AB54A'
         color: #808080;
       }
     }
-
-    &-button {
-      height: 80rpx;
-      text-align: center;
-      line-height: 80rpx;
-      margin: 30rpx 20rpx;
-      color: white;
-      border-radius: 80rpx;
-      font-size: 30rpx;
-      background-color: var(--brc-button-primary-background);
-    }
+    
   }
 }
 </style>
