@@ -63,19 +63,31 @@ export type MaUserProfileVo = BaseProfile & {
    * 职业
    */
   profession?: string
+  /**
+   * 省
+   */
+  province?: string
+  /**
+   * 市
+   */
+  city?: string
+  /**
+   * 区县
+   */
+  county?: string
 }
 
 /**
  * 性别
  */
-export type Gender = '男' | '女'
+export type Gender = 'M' | 'F'
 
 /**
  * 用户详情信息dto
  */
 export type MaUserProfileDto = Pick<
   MaUserProfileVo,
-  'nickname' | 'gender' | 'birthday' | 'profession' | 'fullLocation'
+  'nickname' | 'gender' | 'birthday' | 'profession'
 > & {
   /**
    * 省份编码

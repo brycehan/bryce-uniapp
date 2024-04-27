@@ -8,7 +8,7 @@
           <image class="avatar" mode="aspectFill" :src="authStore.profile?.avatar || defaultAvatar"></image>
         </navigator>
         <view class="meta">
-          <view class="nickname"> 韩brycehan </view>
+          <view class="nickname"> {{ authStore.profile?.nickname }} </view>
           <navigator class="extra" url="/pages/subPages/my/profile/profile" hover-class="none">
             <text class="update">更新头像昵称</text>
           </navigator>

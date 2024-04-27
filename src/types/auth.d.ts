@@ -82,7 +82,7 @@ export type Gender = 'M' | 'F'
  */
 export type UserProfileDto = Pick<
   UserProfileVo,
-  'nickname' | 'gender' | 'birthday' | 'profession' | 'fullLocation'
+  'nickname' | 'gender' | 'birthday' | 'profession'
 > & {
   /**
    * 省份编码

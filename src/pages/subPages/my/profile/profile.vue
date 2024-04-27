@@ -2,8 +2,8 @@
   <view class="viewport">
     <!-- 头像 -->
     <view class="avatar">
-      <view class="avatar-content">
-        <image class="image" mode="aspectFill" :src="defaultAvatar"></image>
+      <view @tap="onAvatarChange" class="avatar-content">
+        <image class="image" mode="aspectFill" :src="authStore.profile?.avatar || defaultAvatar"></image>
       </view>
       <text class="text">点击修改头像</text>
     </view>
@@ -45,7 +45,7 @@
         <view class="form-item">
           <text class="label">城市</text>
           <picker class="picker" mode="region" @change="onFullLocationChange"
-                  :value="profile?.fullLocation!.split(' ')">
+                  :value="profile?.fullLocation?.split(' ')">
             <view v-if="profile?.fullLocation">{{ profile?.fullLocation }}</view>
             <view class="placeholder" v-else>请选择城市</view>
           </picker>
@@ -63,15 +63,17 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from "vue";
+import {ref} from "vue";
 import { useAuthStore } from '@/stores/modules/auth'
 import type { Gender, UserProfileVo } from '@/types/auth'
 import { getUserProfileApi, putUserProfileApi } from '@/api/auth'
 import { onLoad } from '@dcloudio/uni-app'
+import { getMaUserProfileApi, putMaUserProfileApi } from '@/api/user'
 
-const userDto = reactive<any>({account: 'test', gender: 'M'})
 const defaultAvatar = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'
 const primaryColor = '#3AB54A'
+// 城市
+const fullLocationCode = ref<[string, string, string]>(['', '', ''])
 // 个人信息
 const profile = ref<UserProfileVo>({} as UserProfileVo)
 const authStore = useAuthStore()
@@ -80,11 +82,20 @@ const authStore = useAuthStore()
  * 获取个人信息
  */
 const getUserProfileData = async () => {
-  const res = await getUserProfileApi()
-  profile.value = res.data
+  let result
+  // #ifdef MP-WEIXIN
+  result = await getMaUserProfileApi()
+  // #endif
+  // #ifdef H5 || APP-PLUS
+  result = await getUserProfileApi()
+  // #endif
+  profile.value = result.data
+  const data = result.data as any
+  // 省市区县
+  fullLocationCode.value = [data.province || '', data.city || '', data.county || '']
   // 同步store中的头像和昵称
-  authStore.profile!.avatar = res.data.avatar
-  authStore.profile!.nickname = res.data.nickname
+  authStore.profile!.avatar = result.data.avatar
+  authStore.profile!.nickname = result.data.nickname
 }
 
 onLoad(() => {
@@ -168,8 +179,6 @@ const onBirthdayChange: UniHelper.DatePickerOnChange = (ev) => {
   profile.value.birthday = ev.detail.value
 }
 
-// 城市
-let fullLocationCode: [string, string, string] = ['', '', '']
 /**
  * 修改城市
  *
@@ -177,27 +186,33 @@ let fullLocationCode: [string, string, string] = ['', '', '']
  */
 const onFullLocationChange: UniHelper.RegionPickerOnChange = (ev) => {
   profile.value.fullLocation = ev.detail.value.join(' ')
-  fullLocationCode = ev.detail.code!
+  fullLocationCode.value = ev.detail.code!
 }
 
 /**
  * 提交表单
  */
 const onSubmit = async () => {
-  const { nickname, gender, birthday, profession, fullLocation } = profile.value
-
-  const res = await putUserProfileApi({
+  const { nickname, gender, birthday, profession } = profile.value
+  let result = null
+  let data = {
     nickname,
     gender,
     birthday,
-    province: fullLocationCode[0],
-    city: fullLocationCode[1],
-    county: fullLocationCode[2],
-    fullLocation,
+    province: fullLocationCode.value[0],
+    city: fullLocationCode.value[1],
+    county: fullLocationCode.value[2],
     profession
-  })
+  }
+  // #ifdef MP-WEIXIN
+  result = await putMaUserProfileApi(data)
+  // #endif
+  // #ifdef H5 || APP-PLUS
+  result = await putUserProfileApi(data)
+  // #endif
+
   // 更新到store中
-  authStore.profile!.nickname = res.data.nickname
+  authStore.profile!.nickname = result.data.nickname
   uni.showToast({
     icon: 'success',
     title: '保存成功'

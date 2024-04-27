@@ -18,7 +18,7 @@ export const loginApi = (data: MaLoginDto) => {
 /**
  * 获取用户信息
  */
-export const getUserProfileApi = () => {
+export const getMaUserProfileApi = () => {
   return request<MaUserProfileVo>({
     url: '/ma/user/profile',
     method: 'GET',
@@ -30,7 +30,7 @@ export const getUserProfileApi = () => {
  *
  * @param data 请求体参数
  */
-export const putUserProfileApi = (data: MaUserProfileDto) => {
+export const putMaUserProfileApi = (data: MaUserProfileDto) => {
   return request<MaUserProfileVo>({
     url: '/ma/user',
     method: 'PUT',
