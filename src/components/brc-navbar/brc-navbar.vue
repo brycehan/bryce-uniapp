@@ -1,5 +1,5 @@
 <template>
-  <view class="navbar" :style="{ paddingTop: safeAreaInsets!.top + 10 + 'px' }">
+  <view class="navbar" :style="{ paddingTop: safeAreaInsets!.top + 'px' }">
     <!-- logo文字 -->
     <view class="logo">
       <text class="logo-image">Bryce</text>

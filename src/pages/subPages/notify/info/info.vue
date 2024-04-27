@@ -1,7 +1,7 @@
 <template>
   <view class="viewport">
     <scroll-view class="scroll-view" :scroll-y="true">
-      <h3>负债1.1万亿，又一头部房企宣布遇到经营困难！</h3>
+      <view class="title">负债1.1万亿，又一头部房企宣布遇到经营困难！</view>
       <view class="meta"> 系统管理员 2019-09-09 12:00</view>
       <view class="content">
         万科近期在投资者关系交流活动中，就近期热点问题进行了回复。公司表示当前遇到了阶段性经营性困难，流动性短期承压。这是自3月份债务危机被曝光以来，万科首次公开承认所面临的困境，并表示将立足自救，保交楼。
@@ -34,17 +34,17 @@ onLoad((option) => {
   height: 100%;
   overflow: hidden;
 
-  h3 {
+  .title {
     font-size: 38rpx;
     font-weight: 400;
     color: #333;
-    padding: 20rpx;
+    margin: 20rpx;
   }
 
   .meta {
     font-size: 24rpx;
     color: grey;
-    margin: 20rpx 0 30rpx;
+    margin: 20rpx 0 0;
     padding: 20rpx;
   }
   .scroll-view {
@@ -53,11 +53,10 @@ onLoad((option) => {
 
     .content {
       line-height: 50rpx;
-      margin-bottom: 30rpx;
       font-size: 30rpx;
       // 段首缩进
       text-indent: 60rpx;
-      padding: 25rpx;
+      padding: 0 25rpx 60rpx;
     }
   }
 }

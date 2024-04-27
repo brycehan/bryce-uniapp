@@ -34,18 +34,18 @@
     </view>
     <!-- 列表 -->
     <view class="list">
-      <uni-list>
+      <uni-list class="list-box">
         <uni-list-item title="个人信息" showArrow clickable @click="navigateTo('/pages/subPages/my/profile/profile')"></uni-list-item>
         <uni-list-item title="修改密码" showArrow clickable @click="navigateTo('/pages/subPages/my/password/password')"></uni-list-item>
         <uni-list-item title="帮助中心" showArrow clickable @click="navigateTo('/pages/subPages/my/help/help')"></uni-list-item>
       </uni-list>
-      <uni-list>
+      <uni-list class="list-box">
         <uni-list-item title="关于我们" showArrow clickable @click="navigateTo('/pages/subPages/my/profile/profile')"></uni-list-item>
         <uni-list-item title="意见反馈" showArrow clickable @click="navigateTo('/pages/subPages/my/password/password')"></uni-list-item>
         <uni-list-item title="检查更新" showArrow clickable @click="navigateTo('/pages/subPages/my/help/help')"></uni-list-item>
       </uni-list>
 
-      <uni-list>
+      <uni-list class="list-box">
         <uni-list-item title="系统设置" showArrow clickable @click="navigateTo('/pages/subPages/my/profile/profile')"></uni-list-item>
       </uni-list>
     </view>
@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-const defaultAvatar = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'
+const defaultAvatar = '/static/images/avatar-1.png'
 /**
  * 路由跳转
  */
@@ -136,8 +136,11 @@ const navigateTo = (url: string) => {
   }
   // 列表
   .list {
-    .uni-list {
-      margin: 20rpx 0;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10rpx;
+    .list-box {
+      margin: 10rpx 0;
       background-color: white;
     }
   }

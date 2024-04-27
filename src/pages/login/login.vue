@@ -7,7 +7,7 @@
     <!-- #ifdef H5 -->
     <uni-forms class="form" :model="loginDto" :rules="rules">
       <uni-forms-item name="name">
-        <uni-easyinput type="text" v-model="loginDto.username" :input-border="false" :primaryColor="primaryColor" placeholder="账号名/邮箱/手机号" />
+        <uni-easyinput type="text" v-model="loginDto.username" :input-border="false" :primaryColor="primaryColor" placeholder="请输入账号" />
       </uni-forms-item>
       <uni-forms-item  name="name">
         <uni-easyinput type="password" v-model="loginDto.password" :input-border="false" :primaryColor="primaryColor" placeholder="请输入密码" />

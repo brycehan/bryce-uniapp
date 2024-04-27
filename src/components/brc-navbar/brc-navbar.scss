@@ -3,25 +3,22 @@
  */
 .navbar {
   background-color: var(--brc-button-primary-background);
-  background-size: cover;
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
 
   .logo {
     display: flex;
     align-items: center;
-    height: 64rpx;
+    justify-content: center;
     padding-left: 30rpx;
-    padding-top: 20rpx;
+    //height: 86rpx;
+    line-height: 76rpx;
     .logo-image {
       //width: 166rpx;
       //height: 39rpx;
       // 字体样式
       color: white;
-      align-items: center;
-      justify-content: center;
       font-size: 28rpx;
     }
     .logo-text {

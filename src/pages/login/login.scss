@@ -32,9 +32,18 @@
     margin: 0 20rpx;
   }
 
-  .tips {
-    color: #999;
+  .phone {
+    margin-top: 80rpx;
     font-size: 28rpx;
-    margin: 0 20rpx;
+  }
+
+  .tips {
+    position: absolute;
+    bottom: 80rpx;
+    left: 20rpx;
+    right: 20rpx;
+    font-size: 22rpx;
+    color: #999;
+    text-align: center;
   }
 }

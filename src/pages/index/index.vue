@@ -5,7 +5,6 @@
     <!-- 滚动容器 -->
     <scroll-view
         :enable-back-to-top="true"
-        :refresher-enabled="true"
         :scroll-y="true"
         class="scroll-view">
       <!-- 轮播图 -->
@@ -23,18 +22,5 @@
 </script>
 
 <style scoped lang="scss">
-//@import "./index.scss";
-.viewport {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  .scroll-view {
-    flex: 1;
-    overflow: hidden;
-  }
-
-
-}
-
+@import "./index.scss";
 </style>

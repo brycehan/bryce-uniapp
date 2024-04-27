@@ -89,6 +89,7 @@ const primaryColor = '#3AB54A'
       width: 160rpx;
       height: 160rpx;
       border-radius: 50%;
+      background-color: grey;
     }
 
     .text {
