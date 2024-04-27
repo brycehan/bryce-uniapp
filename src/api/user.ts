@@ -1,5 +1,5 @@
 import { request } from '@/utils/request'
-import type { MaLoginDto, MaUserLoginVo, MaUserProfileDto, MaUserProfileVo } from '@/types/maUser'
+import type { MaLoginDto, MaUserProfileDto, MaUserProfileVo } from '@/types/maUser'
 import type { UserLoginVo } from '@/types/auth'
 
 /**
