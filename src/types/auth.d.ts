@@ -29,7 +29,7 @@ type BaseProfile = {
   /**
    * 账户名
    */
-  account: string
+  username: string
   /**
    * 昵称
    */
@@ -39,7 +39,7 @@ type BaseProfile = {
 /**
  * 用户登录结果
  */
-export type UserLoginVo = BaseProfile & {
+export type LoginVo = BaseProfile & {
   /**
    * 手机号
    */
@@ -53,7 +53,7 @@ export type UserLoginVo = BaseProfile & {
 /**
  * 用户详情信息
  */
-export type UserProfileVo = BaseProfile & {
+export type ProfileVo = BaseProfile & {
   /**
    * 性别
    */

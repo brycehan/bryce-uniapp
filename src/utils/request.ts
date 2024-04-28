@@ -2,7 +2,9 @@ import { useAuthStore } from '@/stores/modules/auth'
 import type { ResponseResult } from '@/types/glocal'
 
 // 请求基地址
-const baseUrl = 'http://localhost:8090'
+const baseUrl = '/api'
+// 添加token 请求头标识
+const authStore = useAuthStore()
 
 // 拦截器配置
 const httpInterceptor = {
@@ -56,6 +58,10 @@ export const request = <T>(options: UniApp.RequestOptions) => {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           const result = (res.data as ResponseResult<T>)
           if (result.code === 200) {
+            // 处理自动刷新令牌
+            if (res.header.Authorization) {
+              authStore.setToken(res.header.Authorization)
+            }
             // 刷新token
             resolve(result)
           } else {

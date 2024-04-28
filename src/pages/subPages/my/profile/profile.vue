@@ -13,7 +13,7 @@
       <view class="form-content">
         <view class="form-item">
           <text class="label">账号</text>
-          <text class="account">{{ profile?.account }}</text>
+          <text class="account">{{ profile?.username }}</text>
         </view>
         <view class="form-item">
           <text class="label">昵称</text>
@@ -65,17 +65,17 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import { useAuthStore } from '@/stores/modules/auth'
-import type { Gender, UserProfileVo } from '@/types/auth'
-import { getUserProfileApi, putUserProfileApi } from '@/api/auth'
+import type { Gender, ProfileVo } from '@/types/auth'
+import { getUserProfileApi, putUserProfileApi } from '@/api/profile'
 import { onLoad } from '@dcloudio/uni-app'
-import { getMaUserProfileApi, putMaUserProfileApi } from '@/api/user'
+import { getMaUserProfileApi, putMaUserProfileApi } from '@/api/maUser'
 
-const defaultAvatar = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg'
+const defaultAvatar = '/static/images/avatar/avatar-1.png'
 const primaryColor = '#3AB54A'
 // 城市
 const fullLocationCode = ref<[string, string, string]>(['', '', ''])
 // 个人信息
-const profile = ref<UserProfileVo>({} as UserProfileVo)
+const profile = ref<ProfileVo>({} as ProfileVo)
 const authStore = useAuthStore()
 
 /**
@@ -135,9 +135,16 @@ const onAvatarChange = () => {
  * @param file 文件路径
  */
 const uploadFile = (file: string) => {
+  let url
+  // #ifdef H5 || APP-PLUS
+  url = '/auth/profile/avatar'
+  // #endif
+  // #ifdef MP-WEIXIN
+  url = '/ma/user/avatar'
+  // #endif
   // 上传文件
   uni.uploadFile({
-    url: '/ma/user/avatar',
+    url: url,
     name: 'file',
     filePath: file,
     success: (res) => {

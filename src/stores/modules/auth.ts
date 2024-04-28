@@ -26,11 +26,20 @@ export const useAuthStore = defineStore(
       profile.value = undefined
     }
 
+    /**
+     * 保存token
+     * @param val token
+     */
+    const setToken = (val: string) => {
+      profile.value!.token = val
+    }
+
     return {
       profile,
       authorities,
       setProfile,
       clearProfile,
+      setToken
     }
   },
   {

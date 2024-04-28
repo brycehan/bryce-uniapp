@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useAuthStore } from '@/stores/modules/auth'
-import { loginApi } from '@/api/user'
+import { loginApi } from '@/api/maUser'
 import { onLoad } from '@dcloudio/uni-app'
 import { accountLoginApi } from '@/api/auth'
 import type { AccountLoginDto, UserLoginVo } from '@/types/auth'

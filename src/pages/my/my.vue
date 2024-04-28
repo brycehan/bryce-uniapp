@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/modules/auth'
 
-const defaultAvatar = '/static/images/avatar-1.png'
+const defaultAvatar = '/static/images/avatar/avatar-1.png'
 const authStore = useAuthStore()
 
 /**
