@@ -2,7 +2,14 @@ import { useAuthStore } from '@/stores/modules/auth'
 import type { ResponseResult } from '@/types/glocal'
 
 // 请求基地址
-const baseUrl = '/api'
+let baseUrl = ''
+// #ifdef MP-WEIXIN || APP-PLUS
+baseUrl = 'http://localhost:8090'
+// #endif
+// #ifdef H5
+baseUrl = '/api'
+// #endif
+
 // 添加token 请求头标识
 const authStore = useAuthStore()
 

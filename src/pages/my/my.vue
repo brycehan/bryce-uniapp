@@ -34,10 +34,21 @@
     </view>
     <!-- 列表 -->
     <view class="list">
-      <uni-list class="list-box">
+      <uni-list class="list-box" v-if="authStore.profile">
         <uni-list-item title="个人信息" showArrow clickable @click="navigateTo('/pages/subPages/my/profile/profile')"></uni-list-item>
         <uni-list-item title="修改密码" showArrow clickable @click="navigateTo('/pages/subPages/my/password/password')"></uni-list-item>
         <uni-list-item title="帮助中心" showArrow clickable @click="navigateTo('/pages/subPages/my/help/help')"></uni-list-item>
+      </uni-list>
+      <uni-list class="list-box" v-if="false">
+        <button hover-class="none" class="item-button" open-type="openSetting">授权管理
+          <uni-icons class="arrow" type="right" size="30"></uni-icons>
+        </button>
+        <button hover-class="none" class="item-button" open-type="feedback">问题反馈
+          <uni-icons class="arrow" type="right" size="30"></uni-icons>
+        </button>
+        <button hover-class="none" class="item-button" open-type="contact">联系我们
+          <uni-icons class="arrow" type="right" size="30"></uni-icons>
+        </button>
       </uni-list>
       <uni-list class="list-box">
         <uni-list-item title="关于我们" showArrow clickable @click="navigateTo('/pages/subPages/my/profile/profile')"></uni-list-item>
@@ -163,7 +174,24 @@ const onLogout = () => {
     .list-box {
       margin: 10rpx 0;
       background-color: white;
+
+      .item-button {
+        display: flex;
+        width: 100%;
+        line-height: 90rpx;
+        padding-left: 10rpx;
+        font-size: 30rpx;
+        color: #333;
+        //border-bottom: 1rpx solid #ddd;
+        text-align: left;
+        border-radius: 0;
+        background-color: #fff;
+        //background-color: #f0ad4e;
+
+      }
     }
+
+
   }
 }
 </style>
