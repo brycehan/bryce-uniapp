@@ -38,7 +38,7 @@ const httpInterceptor = {
     // #endif
 
     options.header = {
-      'source-client': sourceClient,
+      'X-Source-Client': sourceClient,
       ...options.header,
     }
 
